@@ -15,6 +15,7 @@
         "ext-iconv": "*",
         "degusta-box/auth": "dev-master",
         "degusta-box/core": "dev-master",
+        "degusta-box/time-recording": "dev-master",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
@@ -37,14 +38,16 @@
         "psr-4": {
             "DegustaBox\\App\\": "src/App/",
             "DegustaBox\\Core\\": ["src/Core", "src/Core/src"],
-            "DegustaBox\\Auth\\": ["src/Auth", "src/Auth/src"]
+            "DegustaBox\\Auth\\": ["src/Auth", "src/Auth/src"],
+            "DegustaBox\\TimeRecording\\": ["src/TimeRecording", "src/TimeRecording/src"]
         }
     },
     "autoload-dev": {
         "psr-4": {
             "DegustaBox\\App\\Tests\\": "src/App/Tests/",
             "DegustaBox\\Core\\Tests\\": "src/Core/Tests/",
-            "DegustaBox\\Auth\\Tests\\": "src/Auth/Tests/"
+            "DegustaBox\\Auth\\Tests\\": "src/Auth/Tests/",
+            "DegustaBox\\TimeRecording\\Tests\\": "src/TimeRecording/Tests/"
         }
     },
     "replace": {

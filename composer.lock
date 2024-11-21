@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84c70e9ba2d4f042d9264f0b8897c7f8",
+    "content-hash": "fad3e19f5ade237b20956eadb1320880",
     "packages": [
         {
             "name": "degusta-box/auth",
@@ -62,6 +62,36 @@
                 }
             ],
             "description": "Core",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "degusta-box/time-recording",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./src/TimeRecording",
+                "reference": "d883afeb4cd9fe39907cebfd67291a9c43e99d65"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "DegustaBox\\TimeRecording\\": "./"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DegustaBox\\TimeRecording\\Tests\\": "Tests/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Alex Peregrina",
+                    "email": "alexperegrina@gmail.com"
+                }
+            ],
+            "description": "TimeRecording bundle",
             "transport-options": {
                 "relative": true
             }
@@ -2782,7 +2812,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "degusta-box/auth": 20,
-        "degusta-box/core": 20
+        "degusta-box/core": 20,
+        "degusta-box/time-recording": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

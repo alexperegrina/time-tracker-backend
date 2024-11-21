@@ -1,0 +1,3 @@
+time-recording_health_check:
+  resource: DegustaBox\TimeRecording\Interfaces\Controller\HealthCheckController
+  prefix: /health-check/

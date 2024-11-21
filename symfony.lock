@@ -5,6 +5,9 @@
     "degusta-box/core": {
         "version": "dev-master"
     },
+    "degusta-box/time-recording": {
+        "version": "dev-master"
+    },
     "symfony/console": {
         "version": "7.1",
         "recipe": {

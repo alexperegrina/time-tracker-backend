@@ -12,3 +12,7 @@ core:
 auth:
     resource: '@AuthBundle/Resources/config/routes.yaml'
     prefix: /api/auth/
+
+time-recording:
+    resource: '@TimeRecordingBundle/Resources/config/routes.yaml'
+    prefix: /api/time-recording/

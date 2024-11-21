@@ -1,0 +1,22 @@
+{
+    "name": "degusta-box/time-recording",
+    "description": "TimeRecording bundle",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Alex Peregrina",
+            "email": "alexperegrina@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DegustaBox\\TimeRecording\\": "./"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DegustaBox\\TimeRecording\\Tests\\": "Tests/"
+        }
+    },
+    "require": {}
+}
