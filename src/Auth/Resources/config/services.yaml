@@ -1,0 +1,18 @@
+imports:
+  - { resource: parameters.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # --- CONTROLLER
+  # ---
+  DegustaBox\Auth\Interfaces\Controller\:
+    resource: '../../src/Interfaces/Controller/*'
+
+  # --- CLI
+  # ---
+  DegustaBox\Auth\Interfaces\Cli\:
+    resource: '../../src/Interfaces/Cli/*Command.php'
+    tags: [ 'console.command' ]

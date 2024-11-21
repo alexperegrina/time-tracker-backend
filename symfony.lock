@@ -1,4 +1,7 @@
 {
+    "degusta-box/auth": {
+        "version": "dev-master"
+    },
     "degusta-box/core": {
         "version": "dev-master"
     },

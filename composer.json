@@ -13,6 +13,7 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "degusta-box/auth": "dev-master",
         "degusta-box/core": "dev-master",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
@@ -35,13 +36,15 @@
     "autoload": {
         "psr-4": {
             "DegustaBox\\App\\": "src/App/",
-            "DegustaBox\\Core\\": ["src/Core", "src/Core/src"]
+            "DegustaBox\\Core\\": ["src/Core", "src/Core/src"],
+            "DegustaBox\\Auth\\": ["src/Auth", "src/Auth/src"]
         }
     },
     "autoload-dev": {
         "psr-4": {
             "DegustaBox\\App\\Tests\\": "src/App/Tests/",
-            "DegustaBox\\Core\\Tests\\": "src/Core/Tests/"
+            "DegustaBox\\Core\\Tests\\": "src/Core/Tests/",
+            "DegustaBox\\Auth\\Tests\\": "src/Auth/Tests/"
         }
     },
     "replace": {

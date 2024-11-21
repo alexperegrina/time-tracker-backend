@@ -8,3 +8,7 @@ controllers:
 core:
     resource: '@CoreBundle/Resources/config/routes.yaml'
     prefix: /api/core/
+
+auth:
+    resource: '@AuthBundle/Resources/config/routes.yaml'
+    prefix: /api/auth/

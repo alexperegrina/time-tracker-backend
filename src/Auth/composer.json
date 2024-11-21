@@ -1,0 +1,22 @@
+{
+    "name": "degusta-box/auth",
+    "description": "Auth",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Alex Peregrina",
+            "email": "alexperegrina@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DegustaBox\\Auth\\": "./"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DegustaBox\\Auth\\Tests\\": "Tests/"
+        }
+    },
+    "require": {}
+}

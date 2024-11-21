@@ -4,8 +4,38 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a75d663473093519eafe91970045e38",
+    "content-hash": "84c70e9ba2d4f042d9264f0b8897c7f8",
     "packages": [
+        {
+            "name": "degusta-box/auth",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./src/Auth",
+                "reference": "49e53af89f0c23d568911f0ef21e004a35bc1022"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "DegustaBox\\Auth\\": "./"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DegustaBox\\Auth\\Tests\\": "Tests/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Alex Peregrina",
+                    "email": "alexperegrina@gmail.com"
+                }
+            ],
+            "description": "Auth",
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "degusta-box/core",
             "version": "dev-master",
@@ -2751,6 +2781,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "degusta-box/auth": 20,
         "degusta-box/core": 20
     },
     "prefer-stable": true,
