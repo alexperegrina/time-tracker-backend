@@ -4,8 +4,38 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33ad40d05d864b824214e8cc85ec8082",
+    "content-hash": "7a75d663473093519eafe91970045e38",
     "packages": [
+        {
+            "name": "degusta-box/core",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./src/Core",
+                "reference": "c143bdf864c01eba3e78e4e1c6d8bcc2ac12fe87"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "DegustaBox\\Core\\": "./"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DegustaBox\\Core\\Tests\\": "Tests/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Alex Peregrina",
+                    "email": "alexperegrina@gmail.com"
+                }
+            ],
+            "description": "Core",
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "psr/cache",
             "version": "3.0.0",
@@ -2719,8 +2749,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "degusta-box/core": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,0 +1,22 @@
+{
+    "name": "degusta-box/core",
+    "description": "Core",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Alex Peregrina",
+            "email": "alexperegrina@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DegustaBox\\Core\\": "./"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DegustaBox\\Core\\Tests\\": "Tests/"
+        }
+    },
+    "require": {}
+}

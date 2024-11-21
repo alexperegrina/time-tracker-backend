@@ -1,4 +1,7 @@
 {
+    "degusta-box/core": {
+        "version": "dev-master"
+    },
     "symfony/console": {
         "version": "7.1",
         "recipe": {

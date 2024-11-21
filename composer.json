@@ -1,12 +1,19 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./src/*"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "degusta-box/core": "dev-master",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
@@ -27,12 +34,14 @@
     },
     "autoload": {
         "psr-4": {
-            "DegustaBox\\App\\": "src/App/"
+            "DegustaBox\\App\\": "src/App/",
+            "DegustaBox\\Core\\": ["src/Core", "src/Core/src"]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DegustaBox\\App\\Tests\\": "src/App/Tests/"
+            "DegustaBox\\App\\Tests\\": "src/App/Tests/",
+            "DegustaBox\\Core\\Tests\\": "src/Core/Tests/"
         }
     },
     "replace": {

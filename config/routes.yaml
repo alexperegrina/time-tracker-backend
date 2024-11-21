@@ -4,3 +4,7 @@ controllers:
         namespace: DegustaBox\App\Controller
     type: attribute
     prefix: /api/app/
+
+core:
+    resource: '@CoreBundle/Resources/config/routes.yaml'
+    prefix: /api/core/
