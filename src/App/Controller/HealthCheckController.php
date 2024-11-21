@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Controller;
+namespace DegustaBox\App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,7 +12,7 @@ class HealthCheckController extends AbstractController
     {
         return $this->json([
             'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/HealthCheckController.php',
+            'path' => 'src/App/Controller/HealthCheckController.php',
         ]);
     }
 }

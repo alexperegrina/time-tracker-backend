@@ -1,4 +1,3 @@
 maker:
-  root_namespace: App
-  generate_final_classes: true
-  generate_final_entities: false
+  root_namespace: DegustaBox\App
+  generate_final_classes: false

@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "DegustaBox\\App\\": "src/App/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "DegustaBox\\App\\Tests\\": "src/App/Tests/"
         }
     },
     "replace": {

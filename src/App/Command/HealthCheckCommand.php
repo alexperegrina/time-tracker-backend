@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace DegustaBox\App\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
