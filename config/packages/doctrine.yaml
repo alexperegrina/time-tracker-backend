@@ -17,6 +17,11 @@ doctrine:
             enum: string
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            Uuid: DegustaBox\Core\Infrastructure\Repository\Doctrine\Type\UuidType
+            Name: DegustaBox\Core\Infrastructure\Repository\Doctrine\Type\NameType
+            Gender: DegustaBox\Core\Infrastructure\Repository\Doctrine\Type\GenderType
+            Roles: DegustaBox\Auth\Infrastructure\Repository\Doctrine\Type\RolesType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

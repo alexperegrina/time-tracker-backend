@@ -1,0 +1,14 @@
+<?php
+declare(strict_types=1);
+
+namespace DegustaBox\Core\Domain\Exception;
+
+use Exception;
+
+class EntityDuplicateException extends Exception
+{
+    public function __construct($nameEntity = "Entity")
+    {
+        parent::__construct("This '$nameEntity' already exist");
+    }
+}

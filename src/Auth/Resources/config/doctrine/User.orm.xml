@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+                  >
+    <entity name="DegustaBox\Auth\Domain\Entity\User" repository-class="DegustaBox\Auth\Infrastructure\Repository\Doctrine\DoctrineUserRepository" table="user">
+        <id name="id" type="Uuid"/>
+        <field name="email" type="string" length="128" unique="true"/>
+        <field name="roles" type="Roles"/>
+        <field name="password" type="string"/>
+        <field name="isVerified" type="boolean"/>
+        <field name="name" type="Name" length="64" nullable="true"/>
+        <field name="gender" type="Gender" length="16" nullable="true"/>
+<!--        <field name="createdAt" type="datetime" nullable="true">-->
+<!--            <gedmo:timestampable on="create"/>-->
+<!--        </field>-->
+<!--        <field name="updatedAt" type="datetime" nullable="true">-->
+<!--            <gedmo:timestampable on="update"/>-->
+<!--        </field>-->
+<!--        <field name="deletedAt" type="datetime" nullable="true"/>-->
+<!--        <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" hard-delete="true"/>-->
+
+<!--        <one-to-many field="trackings" target-entity="NoWhip\TimeRecording\Domain\Entity\Tracking" mapped-by="user" orphan-removal="true">-->
+<!--            <cascade><cascade-all/></cascade>-->
+<!--        </one-to-many>-->
+    </entity>
+</doctrine-mapping>
