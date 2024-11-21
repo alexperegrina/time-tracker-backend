@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace DegustaBox\Core\DependencyInjection;
 
-use Exception;
+use DegustaBox\Core\Infrastructure\Symfony\Extension\AbstractExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class CoreExtension extends Extension
+class CoreExtension extends AbstractExtension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -25,13 +24,5 @@ class CoreExtension extends Extension
     public function getConfiguration(array $config, ContainerBuilder $container): CoreConfiguration
     {
         return new CoreConfiguration();
-    }
-
-    protected function loadFromEnvironment(YamlFileLoader $loader,  string $environment, string $nameFile = 'services'): void
-    {
-        $loader->load("$nameFile.yaml");
-        try {
-            $loader->load("{$nameFile}.$environment.yaml");
-        } catch (Exception) {}
     }
 }

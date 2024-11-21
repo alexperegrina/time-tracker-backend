@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace DegustaBox\TimeRecording\DependencyInjection;
 
-use Exception;
+use DegustaBox\Core\Infrastructure\Symfony\Extension\AbstractExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class TimeRecordingExtension extends Extension
+class TimeRecordingExtension extends AbstractExtension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -25,13 +24,5 @@ class TimeRecordingExtension extends Extension
     public function getConfiguration(array $config, ContainerBuilder $container): TimeRecordingConfiguration
     {
         return new TimeRecordingConfiguration();
-    }
-
-    protected function loadFromEnvironment(YamlFileLoader $loader,  string $environment, string $nameFile = 'services'): void
-    {
-        $loader->load("$nameFile.yaml");
-        try {
-            $loader->load("{$nameFile}.$environment.yaml");
-        } catch (Exception) {}
     }
 }
