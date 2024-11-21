@@ -16,3 +16,52 @@ services:
   DegustaBox\Core\Interfaces\Cli\:
     resource: '../../src/Interfaces/Cli/*Command.php'
     tags: [ 'console.command' ]
+
+  _instanceof:
+    DegustaBox\Core\Domain\Messenger\Handler\CommandHandler:
+      tags:
+        - { name: messenger.message_handler, bus: command.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\QueryHandler:
+      tags:
+        - { name: messenger.message_handler, bus: query.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\EventHandler:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
+
+  # --- BUS
+  # ---
+  DegustaBox\Core\Infrastructure\Messenger\Bus\:
+    resource: '../../src/Infrastructure/Messenger/Bus/*'
+
+  DegustaBox\Core\Domain\Messenger\Bus\CommandBus:
+    class: DegustaBox\Core\Infrastructure\Messenger\Bus\SymfonyCommandBus
+    arguments:
+      - '@command.bus'
+
+  DegustaBox\Core\Domain\Messenger\Bus\QueryBus:
+    class: DegustaBox\Core\Infrastructure\Messenger\Bus\SymfonyQueryBus
+    arguments:
+      - '@query.bus'
+
+  # --- COMMAND BUS
+  # ---
+  DegustaBox\Core\Application\Command\:
+    resource: '../../src/Application/Command/*/*'
+    exclude:
+      - '../../src/Application/Command/*/*Command.php'
+
+  # --- QUERY BUS
+  # ---
+  DegustaBox\Core\Application\Query\:
+    resource: '../../src/Application/Query/*/*'
+    exclude:
+      - '../../src/Application/Query/*/*Query.php'
+
+  # --- EVENT BUS
+  # ---
+  DegustaBox\Core\Application\Event\:
+    resource: '../../src/Application/Event/*/*'
+    exclude:
+      - '../../src/Application/Event/*/*Event.php'
