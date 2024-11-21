@@ -68,3 +68,9 @@ services:
     class: DegustaBox\Auth\Infrastructure\EventListener\AuthenticationSuccessListener
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+  # --- FIXTURES
+  # ---
+  DegustaBox\Auth\DataFixtures\:
+    resource: '../../DataFixtures/*'
+    tags: [ 'doctrine.fixture.orm' ]

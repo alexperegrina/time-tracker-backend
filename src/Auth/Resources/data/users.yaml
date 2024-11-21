@@ -1,0 +1,18 @@
+- id: e2beb414-9c65-40db-95b3-502f37973ed8
+  email: system@degustabox.com
+  password: '123456'
+  roles:
+    - ROLE_ADMIN
+    - ROLE_SUPER_ADMIN
+
+- id: d398a9b5-cb0d-450d-8e8e-0692a81aa951
+  email: user@degustabox.com
+  password: '123456'
+  roles:
+    - ROLE_USER
+
+- id: a8343ad2-43a5-4acf-83e6-e174817de133
+  email: manager@degustabox.com
+  password: '123456'
+  roles:
+    - ROLE_MANAGER
