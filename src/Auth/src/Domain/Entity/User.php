@@ -7,8 +7,13 @@ use DegustaBox\Auth\Domain\ValueObject\Enum\Role;
 use DegustaBox\Core\Domain\ValueObject\Enum\Gender;
 use DegustaBox\Core\Domain\ValueObject\Name;
 use DegustaBox\Core\Domain\ValueObject\Uuid;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+/**
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ */
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     protected function __construct(
         public readonly Uuid $id,
@@ -91,9 +96,4 @@ class User
     {
         return $this->isVerified;
     }
-
-//    public function setIsVerified(bool $isVerified): void
-//    {
-//        $this->isVerified = $isVerified;
-//    }
 }

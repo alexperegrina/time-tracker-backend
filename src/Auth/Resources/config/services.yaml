@@ -6,6 +6,19 @@ services:
     autowire: true
     autoconfigure: true
 
+  _instanceof:
+    DegustaBox\Core\Domain\Messenger\Handler\CommandHandler:
+      tags:
+        - { name: messenger.message_handler, bus: command.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\QueryHandler:
+      tags:
+        - { name: messenger.message_handler, bus: query.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\EventHandler:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
+
   # --- CONTROLLER
   # ---
   DegustaBox\Auth\Interfaces\Controller\:
@@ -16,3 +29,42 @@ services:
   DegustaBox\Auth\Interfaces\Cli\:
     resource: '../../src/Interfaces/Cli/*Command.php'
     tags: [ 'console.command' ]
+
+  # --- COMMAND BUS
+  # ---
+  DegustaBox\Auth\Application\Command\:
+    resource: '../../src/Application/Command/*/*'
+    exclude:
+      - '../../src/Application/Command/*/*Command.php'
+
+  # --- QUERY BUS
+  # ---
+  DegustaBox\Auth\Application\Query\:
+    resource: '../../src/Application/Query/*/*'
+    exclude:
+      - '../../src/Application/Query/*/*Query.php'
+
+  # --- EVENT BUS
+  # ---
+  DegustaBox\Auth\Application\Event\:
+    resource: '../../src/Application/Event/*/*'
+    exclude:
+      - '../../src/Application/Event/*/*Event.php'
+
+  # --- REPOSITORY
+  # ---
+  DegustaBox\Auth\Domain\Repository\UserRepository:
+    class: DegustaBox\Auth\Infrastructure\Repository\Doctrine\DoctrineUserRepository
+
+  # --- DOCTRINE REPOSITORY
+  # ---
+  DegustaBox\Auth\Infrastructure\Repository\Doctrine\:
+    resource: '../../src/Infrastructure/Repository/Doctrine/*'
+    tags: [ 'doctrine.repository_service' ]
+
+  # --- EVENT LISTENER
+  # ---
+  DegustaBox\Auth\Infrastructure\EventListener\AuthenticationSuccessListener:
+    class: DegustaBox\Auth\Infrastructure\EventListener\AuthenticationSuccessListener
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }

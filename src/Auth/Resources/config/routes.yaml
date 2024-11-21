@@ -1,3 +1,11 @@
 auth_health_check:
   resource: DegustaBox\Auth\Interfaces\Controller\HealthCheckController
   prefix: /health-check/
+
+auth_login:
+  resource: DegustaBox\Auth\Interfaces\Controller\ApiLoginController
+  prefix: /login/
+
+auth_user:
+  resource: DegustaBox\Auth\Interfaces\Controller\UserController
+  prefix: /user/
