@@ -1,0 +1,78 @@
+doctrine:
+    dbal:
+        dbname: '%env(resolve:DATABASE_DBNAME)%'
+        host: '%env(resolve:DATABASE_HOST)%'
+        port: '%env(resolve:DATABASE_PORT)%'
+        user: '%env(resolve:DATABASE_USER)%'
+        password: '%env(resolve:DATABASE_PASSWORD)%'
+        driver: pdo_mysql
+        server_version: '%env(resolve:DATABASE_SERVER_VERSION)%'
+        charset: utf8mb4
+        logging: false
+        profiling: false
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        mapping_types:
+            enum: string
+        profiling_collect_backtrace: '%kernel.debug%'
+        use_savepoints: true
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+#        identity_generation_preferences:
+#            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+        auto_mapping: true
+        controller_resolver:
+            auto_mapping: false
+        mappings:
+            App:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/App/Entity'
+                prefix: 'DegustaBox\App\Entity'
+                alias: App
+            CoreBundle:
+                is_bundle: true
+                type: xml
+                dir: 'Resources/config/doctrine'
+                prefix: 'DegustaBox\Core\Domain\Entity'
+            AuthBundle:
+                is_bundle: true
+                type: xml
+                dir: 'Resources/config/doctrine'
+                prefix: 'DegustaBox\Auth\Domain\Entity'
+            TimeRecordingBundle:
+                is_bundle: true
+                type: xml
+                dir: 'Resources/config/doctrine'
+                prefix: 'DegustaBox\TimeRecording\Domain\Entity'
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system
