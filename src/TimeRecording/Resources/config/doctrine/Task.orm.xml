@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="DegustaBox\TimeRecording\Domain\Entity\Task" repository-class="DegustaBox\TimeRecording\Infrastructure\Repository\Doctrine\DoctrineTaskRepository" table="task">
+        <id name="id" type="Uuid"/>
+        <field name="name" type="string" length="64"/>
+        <many-to-one field="user" target-entity="DegustaBox\Auth\Domain\Entity\User" inversed-by="task">
+            <join-column name="user_id" referenced-column-name="id"/>
+        </many-to-one>
+        <one-to-many field="trackedTasks" target-entity="DegustaBox\TimeRecording\Domain\Entity\Tracking" mapped-by="task" orphan-removal="true">
+            <cascade><cascade-all/></cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

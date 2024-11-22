@@ -6,6 +6,19 @@ services:
     autowire: true
     autoconfigure: true
 
+  _instanceof:
+    DegustaBox\Core\Domain\Messenger\Handler\CommandHandler:
+      tags:
+        - { name: messenger.message_handler, bus: command.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\QueryHandler:
+      tags:
+        - { name: messenger.message_handler, bus: query.bus }
+
+    DegustaBox\Core\Domain\Messenger\Handler\EventHandler:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
+
   # --- CONTROLLER
   # ---
   DegustaBox\TimeRecording\Interfaces\Controller\:
@@ -16,3 +29,44 @@ services:
   DegustaBox\TimeRecording\Interfaces\Cli\:
     resource: '../../src/Interfaces/Cli/*Command.php'
     tags: [ 'console.command' ]
+
+  # --- COMMAND BUS
+  # ---
+  DegustaBox\TimeRecording\Application\Command\:
+    resource: '../../src/Application/Command/*/*'
+    exclude:
+      - '../../src/Application/Command/*/*Command.php'
+
+  # --- QUERY BUS
+  # ---
+  DegustaBox\TimeRecording\Application\Query\:
+    resource: '../../src/Application/Query/*/*'
+    exclude:
+      - '../../src/Application/Query/*/*Query.php'
+
+  # --- EVENT BUS
+  # ---
+  DegustaBox\TimeRecording\Application\Event\:
+    resource: '../../src/Application/Event/*/*'
+    exclude:
+      - '../../src/Application/Event/*/*Event.php'
+
+  # --- REPOSITORY
+  # ---
+  DegustaBox\TimeRecording\Domain\Repository\TaskRepository:
+    class: DegustaBox\TimeRecording\Infrastructure\Repository\Doctrine\DoctrineTaskRepository
+
+  DegustaBox\TimeRecording\Domain\Repository\TrackingRepository:
+    class: DegustaBox\TimeRecording\Infrastructure\Repository\Doctrine\DoctrineTrackingRepository
+
+  # --- DOCTRINE REPOSITORY
+  # ---
+  DegustaBox\TimeRecording\Infrastructure\Repository\Doctrine\:
+    resource: '../../src/Infrastructure/Repository/Doctrine/*'
+    tags: [ 'doctrine.repository_service' ]
+
+  # --- FIXTURES
+  # ---
+  DegustaBox\TimeRecording\DataFixtures\:
+    resource: '../../DataFixtures/*'
+    tags: [ 'doctrine.fixture.orm' ]
