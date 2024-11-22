@@ -7,6 +7,8 @@ use DegustaBox\Auth\Domain\ValueObject\Enum\Role;
 use DegustaBox\Core\Domain\ValueObject\Enum\Gender;
 use DegustaBox\Core\Domain\ValueObject\Name;
 use DegustaBox\Core\Domain\ValueObject\Uuid;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -15,6 +17,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
+
     protected function __construct(
         public readonly Uuid $id,
         public readonly string $email,
