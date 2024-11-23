@@ -2,6 +2,8 @@
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 ROOT_DIR := $(dir $(MKFILE_PATH))
 CURRENT_DIR := $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
+ENV=dev
+PHP_CONSOLE=php bin/console
 ########################################################
 
 include etc/makefile/db.mk
@@ -18,10 +20,8 @@ init-env:
 restore-env:
 	@make --no-print-directory db-reset
 
-#----- Test
-
 init-env-test:
-	@make --no-print-directory db-init-test
+	@make --no-print-directory db-init ENV=test
 
 restore-env-test:
-	@make --no-print-directory db-reset-test
+	@make --no-print-directory db-reset ENV=test

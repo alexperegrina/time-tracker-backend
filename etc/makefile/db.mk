@@ -1,50 +1,27 @@
+########################################################
+DOCTRINE_OPTIONS=--env=$(ENV)
+########################################################
+
 db-create:
-	@php bin/console doctrine:database:create
+	@$(PHP_CONSOLE) doctrine:database:create $(DOCTRINE_OPTIONS)
 
 db-drop:
-	@php bin/console doctrine:database:drop --force
+	@$(PHP_CONSOLE) doctrine:database:drop --force $(DOCTRINE_OPTIONS)
 
 db-migrate:
-	@php bin/console doctrine:migrations:migrate --no-interaction
+	@$(PHP_CONSOLE) doctrine:migrations:migrate --no-interaction $(DOCTRINE_OPTIONS)
 
 db-fixture:
-	@php bin/console doctrine:fixtures:load --append
+	@$(PHP_CONSOLE) doctrine:fixtures:load --append $(DOCTRINE_OPTIONS)
 
 db-schema:
-	@php bin/console doctrine:schema:create
+	@$(PHP_CONSOLE) doctrine:schema:create $(DOCTRINE_OPTIONS)
 
 db-init:
-	@make --no-print-directory db-create
-	@make --no-print-directory db-schema
-	@make --no-print-directory db-fixture
+	@make --no-print-directory db-create ENV=$(ENV)
+	@make --no-print-directory db-schema ENV=$(ENV)
+	@make --no-print-directory db-fixture ENV=$(ENV)
 
 db-reset:
-	@make --no-print-directory db-drop
-	@make --no-print-directory db-init
-
-#----- Test
-
-db-create-test:
-	@php bin/console doctrine:database:create --env=test
-
-db-drop-test:
-	@php bin/console doctrine:database:drop --force --env=test
-
-db-migrate-test:
-	@php bin/console doctrine:migrations:migrate --no-interaction --env=test
-
-db-fixture-test:
-	@php bin/console doctrine:fixtures:load --append --env=test
-
-db-schema-test:
-	@php bin/console doctrine:schema:create --env=test
-
-db-init-test:
-	@make --no-print-directory db-create-test
-	@make --no-print-directory db-schema-test
-	@make --no-print-directory db-fixture-test
-
-db-reset-test:
-	@make --no-print-directory db-drop-test
-	@make --no-print-directory db-init-test
-
+	@make --no-print-directory db-drop ENV=$(ENV)
+	@make --no-print-directory db-init ENV=$(ENV)
