@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="tests/bootstrap.php"
+         convertDeprecationsToExceptions="false"
+>
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
+    </php>
+
+    <testsuites>
+        <testsuite name="root">
+            <directory>tests</directory>
+        </testsuite>
+
+        <testsuite name="app">
+            <directory>src/App/Tests</directory>
+        </testsuite>
+
+        <testsuite name="auth">
+            <directory>src/Auth/Tests</directory>
+        </testsuite>
+
+        <testsuite name="core">
+            <directory>src/Core/Tests</directory>
+        </testsuite>
+
+        <testsuite name="time-recording">
+            <directory>src/TimeRecording/Tests</directory>
+        </testsuite>
+
+        <testsuite name="unit">
+            <directory>src/Auth/Tests/Domain</directory>
+            <directory>src/Core/Tests/Domain</directory>
+            <directory>src/TimeRecording/Tests/Domain</directory>
+        </testsuite>
+
+        <testsuite name="integration">
+            <directory>src/Auth/Tests/Application</directory>
+            <directory>src/Core/Tests/Application</directory>
+            <directory>src/TimeRecording/Tests/Application</directory>
+        </testsuite>
+
+        <testsuite name="e2e">
+            <directory>src/Auth/Tests/Interfaces/Controller</directory>
+            <directory>src/Core/Tests/Interfaces/Controller</directory>
+            <directory>src/TimeRecording/Tests/Interfaces/Controller</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src/App</directory>
+            <directory suffix=".php">src/Auth/src</directory>
+            <directory suffix=".php">src/Core/src</directory>
+            <directory suffix=".php">src/TimeRecording/src</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">src/App/Tests</directory>
+            <directory suffix=".php">src/Auth/Tests</directory>
+            <directory suffix=".php">src/Core/Tests</directory>
+            <directory suffix=".php">src/TimeRecording/Tests</directory>
+        </exclude>
+    </coverage>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
+
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
+    </extensions>
+</phpunit>

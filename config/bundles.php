@@ -9,6 +9,7 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+    DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     DegustaBox\Core\CoreBundle::class => ['all' => true],
     DegustaBox\Auth\AuthBundle::class => ['all' => true],
     DegustaBox\TimeRecording\TimeRecordingBundle::class => ['all' => true],
