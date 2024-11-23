@@ -1,3 +1,7 @@
 time-recording_health_check:
   resource: DegustaBox\TimeRecording\Interfaces\Controller\HealthCheckController
   prefix: /health-check/
+
+time-recording_task:
+  resource: DegustaBox\TimeRecording\Interfaces\Controller\TaskController
+  prefix: /task/
