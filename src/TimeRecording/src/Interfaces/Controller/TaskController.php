@@ -6,6 +6,7 @@ namespace DegustaBox\TimeRecording\Interfaces\Controller;
 use DegustaBox\Auth\Domain\Entity\User;
 use DegustaBox\Core\Domain\Messenger\Bus\CommandBus;
 use DegustaBox\Core\Domain\Messenger\Bus\QueryBus;
+use DegustaBox\Core\Domain\Validator\SchemaValidator;
 use DegustaBox\TimeRecording\Application\Command\CloseTask\CloseTaskCommand;
 use DegustaBox\TimeRecording\Application\Command\CreateTask\CreateTaskCommand;
 use DegustaBox\TimeRecording\Application\Query\FindTasksByUser\FindTasksByUserQuery;
@@ -20,12 +21,20 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class TaskController extends AbstractController
 {
-    public function __construct(private readonly CommandBus $commandBus, private readonly QueryBus $queryBus) {}
+    public function __construct(
+        private readonly CommandBus $commandBus,
+        private readonly QueryBus $queryBus,
+        private readonly SchemaValidator $schemaValidator
+    ) {}
 
     #[Route('/create', name: 'time-recording_create', methods: ['POST'])]
     public function create(#[CurrentUser] ?User $user, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $data = $this->schemaValidator->validate(
+            $data,
+            '@TimeRecordingBundle/Resources/schema/Interfaces/Controller/TaskController/Request/create.json'
+        );
 
         $command = new CreateTaskCommand(
             $user->id->value,
@@ -46,6 +55,10 @@ class TaskController extends AbstractController
     public function close(#[CurrentUser] ?User $user, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $data = $this->schemaValidator->validate(
+            $data,
+            '@TimeRecordingBundle/Resources/schema/Interfaces/Controller/TaskController/Request/close.json'
+        );
 
         $command = new CloseTaskCommand($user->id->value, $data['name'], $data['end']);
 
