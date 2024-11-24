@@ -10,8 +10,6 @@ use DegustaBox\Core\Domain\Validator\SchemaValidator;
 use DegustaBox\TimeRecording\Application\Command\CloseTask\CloseTaskCommand;
 use DegustaBox\TimeRecording\Application\Command\CreateTask\CreateTaskCommand;
 use DegustaBox\TimeRecording\Application\Query\FindTasksByUser\FindTasksByUserQuery;
-use DegustaBox\TimeRecording\Domain\Exception\NotTrackingInProcessException;
-use DegustaBox\TimeRecording\Domain\Exception\TrackingInProcessException;
 use DegustaBox\TimeRecording\Interfaces\Controller\Response\TaskController\ListResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,12 +41,8 @@ class TaskController extends AbstractController
             $data['end'] ?? null
         );
 
-        try {
-            $this->commandBus->dispatch($command);
-            return $this->json([], 201);
-        } catch (TrackingInProcessException $e) {
-            return $this->json(["message" => $e->getMessage()], 202);
-        }
+        $this->commandBus->dispatch($command);
+        return $this->json([], 201);
     }
 
     #[Route('/close', name: 'time-recording_close', methods: ['POST'])]
@@ -62,12 +56,8 @@ class TaskController extends AbstractController
 
         $command = new CloseTaskCommand($user->id->value, $data['name'], $data['end']);
 
-        try {
-            $this->commandBus->dispatch($command);
-            return $this->json([], 201);
-        } catch (NotTrackingInProcessException $e) {
-            return $this->json(["message" => $e->getMessage()], 202);
-        }
+        $this->commandBus->dispatch($command);
+        return $this->json([], 201);
     }
 
     #[Route('/list', name: 'time-recording_list', methods: ['GET'])]
