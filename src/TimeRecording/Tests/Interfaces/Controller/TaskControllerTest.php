@@ -7,6 +7,8 @@ use DateTime;
 use DegustaBox\Auth\Domain\Entity\User;
 use DegustaBox\Auth\Domain\Repository\UserRepository;
 use DegustaBox\Core\Domain\Validator\SchemaValidator;
+use DegustaBox\TimeRecording\Domain\Exception\NotTrackingInProcessException;
+use DegustaBox\TimeRecording\Domain\Exception\TrackingInProcessException;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -35,8 +37,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s'),
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM),
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -49,7 +51,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -62,8 +64,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s'),
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM),
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -73,8 +75,8 @@ class TaskControllerTest extends WebTestCase
         $dt->modify('+1 hour');
         $content = [
             'name' => 'task-test',
-            'start' => $dt->format('Y-m-d H:i:s'),
-            'end' => $dt->format('Y-m-d H:i:s')
+            'start' => $dt->format(DATE_ATOM),
+            'end' => $dt->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -87,7 +89,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -95,13 +97,17 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->end->format('Y-m-d H:i:s'),
+            'start' => $this->end->format(DATE_ATOM),
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
         $this->assertResponseStatusCodeSame(202);
 
-        $expected = ['message' => 'Tracking in process'];
+        $expected = [
+            'code' => 202,
+            'exception' => TrackingInProcessException::class,
+            'message' => 'Tracking in process'
+        ];
         $this->assertJsonStringEqualsJsonString($this->client->getResponse()->getContent(), json_encode($expected));
     }
 
@@ -111,7 +117,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -119,7 +125,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/close', content: json_encode($content));
@@ -132,8 +138,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s'),
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM),
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -141,13 +147,17 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/close', content: json_encode($content));
         $this->assertResponseStatusCodeSame(202);
 
-        $expected = ['message' => 'Not tracking in process'];
+        $expected = [
+            'code' => 202,
+            'exception' => NotTrackingInProcessException::class,
+            'message' => 'Not tracking in process'
+        ];
         $this->assertJsonStringEqualsJsonString($this->client->getResponse()->getContent(), json_encode($expected));
     }
 
@@ -157,8 +167,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->start->format('Y-m-d H:i:s'),
-            'end' => $this->end->format('Y-m-d H:i:s')
+            'start' => $this->start->format(DATE_ATOM),
+            'end' => $this->end->format(DATE_ATOM)
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));

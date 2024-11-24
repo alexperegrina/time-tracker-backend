@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace DegustaBox\Core\Infrastructure\Symfony\EventListener;
+namespace DegustaBox\TimeRecording\Infrastructure\Symfony\EventListener;
 
 use DegustaBox\TimeRecording\Domain\Exception\NotTrackingInProcessException;
 use DegustaBox\TimeRecording\Domain\Exception\TrackingInProcessException;

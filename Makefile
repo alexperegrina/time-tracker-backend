@@ -18,10 +18,12 @@ init-env:
 	@make --no-print-directory db-init
 
 restore-env:
+	@make --no-print-directory cache-clear
 	@make --no-print-directory db-reset
 
 init-env-test:
 	@make --no-print-directory db-init ENV=test
 
 restore-env-test:
+	@make --no-print-directory cache-clear
 	@make --no-print-directory db-reset ENV=test

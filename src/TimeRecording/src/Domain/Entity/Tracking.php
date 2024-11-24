@@ -74,7 +74,7 @@ class Tracking
      */
     private function validateDates(): void
     {
-        if ($this->start > $this->end) {
+        if (!is_null($this->end) && $this->start > $this->end) {
             throw new InvalidDateRangeException();
         }
     }
