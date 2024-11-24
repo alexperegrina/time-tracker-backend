@@ -64,8 +64,8 @@ services:
 
   # --- EVENT LISTENER
   # ---
-  DegustaBox\Auth\Infrastructure\EventListener\AuthenticationSuccessListener:
-    class: DegustaBox\Auth\Infrastructure\EventListener\AuthenticationSuccessListener
+  DegustaBox\Auth\Infrastructure\Symfony\EventListener\AuthenticationSuccessListener:
+    class: DegustaBox\Auth\Infrastructure\Symfony\EventListener\AuthenticationSuccessListener
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
 

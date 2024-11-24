@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace DegustaBox\Auth\Infrastructure\EventListener;
+namespace DegustaBox\Auth\Infrastructure\Symfony\EventListener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
-class AuthenticationSuccessListener
+readonly class AuthenticationSuccessListener
 {
-    public function __construct(private readonly JWTTokenManagerInterface $jwtManager)
+    public function __construct(private JWTTokenManagerInterface $jwtManager)
     {}
 
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event): void
