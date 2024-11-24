@@ -21,6 +21,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
         "lexik/jwt-authentication-bundle": "^3.1",
+        "nelmio/cors-bundle": "^2.5",
         "opis/json-schema": "^2.3",
         "stof/doctrine-extensions-bundle": "^1.12",
         "symfony/console": "7.1.*",

@@ -10,6 +10,7 @@ return [
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
     DegustaBox\Core\CoreBundle::class => ['all' => true],
     DegustaBox\Auth\AuthBundle::class => ['all' => true],
     DegustaBox\TimeRecording\TimeRecordingBundle::class => ['all' => true],
