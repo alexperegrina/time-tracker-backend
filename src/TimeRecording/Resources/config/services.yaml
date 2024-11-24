@@ -70,3 +70,8 @@ services:
   DegustaBox\TimeRecording\DataFixtures\:
     resource: '../../DataFixtures/*'
     tags: [ 'doctrine.fixture.orm' ]
+
+  # --- EVENT LISTENER
+  # ---
+  DegustaBox\TimeRecording\Infrastructure\Symfony\EventListener\:
+    resource: '../../src/Infrastructure/Symfony/EventListener/*'

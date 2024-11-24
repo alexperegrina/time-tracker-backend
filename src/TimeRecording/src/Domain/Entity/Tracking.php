@@ -5,16 +5,22 @@ namespace DegustaBox\TimeRecording\Domain\Entity;
 
 use DateTime;
 use DegustaBox\Core\Domain\ValueObject\Uuid;
+use DegustaBox\TimeRecording\Domain\Exception\InvalidDateRangeException;
 
 class Tracking
 {
     private Task $task;
 
+    /**
+     * @throws InvalidDateRangeException
+     */
     public function __construct(
         public readonly Uuid $id,
         public readonly DateTime $start,
         private ?DateTime $end = null,
-    ) {}
+    ) {
+        $this->validateDates();
+    }
 
     public function setTask(Task $task): void
     {
@@ -26,9 +32,13 @@ class Tracking
         return $this->end;
     }
 
+    /**
+     * @throws InvalidDateRangeException
+     */
     public function setEnd(DateTime $end): void
     {
         $this->end = $end;
+        $this->validateDates();
     }
 
     public function time(): int
@@ -57,5 +67,15 @@ class Tracking
         $diff = $initToday->getTimestamp() - $endToday->getTimestamp();
 
         return abs($diff);
+    }
+
+    /**
+     * @throws InvalidDateRangeException
+     */
+    private function validateDates(): void
+    {
+        if ($this->start > $this->end) {
+            throw new InvalidDateRangeException();
+        }
     }
 }
