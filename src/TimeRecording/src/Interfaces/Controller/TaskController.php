@@ -8,8 +8,10 @@ use DegustaBox\Core\Domain\Messenger\Bus\CommandBus;
 use DegustaBox\Core\Domain\Messenger\Bus\QueryBus;
 use DegustaBox\TimeRecording\Application\Command\CloseTask\CloseTaskCommand;
 use DegustaBox\TimeRecording\Application\Command\CreateTask\CreateTaskCommand;
+use DegustaBox\TimeRecording\Application\Query\FindTasksByUser\FindTasksByUserQuery;
 use DegustaBox\TimeRecording\Domain\Exception\NotTrackingInProcessException;
 use DegustaBox\TimeRecording\Domain\Exception\TrackingInProcessException;
+use DegustaBox\TimeRecording\Interfaces\Controller\Response\TaskController\ListResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,5 +55,15 @@ class TaskController extends AbstractController
         } catch (NotTrackingInProcessException $e) {
             return $this->json(["message" => $e->getMessage()], 202);
         }
+    }
+
+    #[Route('/list', name: 'time-recording_list', methods: ['GET'])]
+    public function list(#[CurrentUser] ?User $user): JsonResponse
+    {
+        $query = new FindTasksByUserQuery($user->id->value);
+        $tasks = $this->queryBus->dispatch($query);
+        $response = new ListResponse($tasks);
+
+        return $this->json($response->response());
     }
 }

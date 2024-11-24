@@ -1,0 +1,22 @@
+{
+  "title": "Tracking",
+  "type": "object",
+  "required": [
+    "id",
+    "start"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://degusta-box.com/Core/Domain/ValueObject/Uuid.json"
+    },
+    "start": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end": {
+      "type": "string",
+      "format": "date-time",
+      "default": null
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "title": "list",
+  "type": "object",
+  "required": [
+    "tasks"
+  ],
+  "properties": {
+    "tasks": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "tracking",
+            "time"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "https://degusta-box.com/Core/Domain/ValueObject/Uuid.json"
+            },
+            "name": {
+              "type": "string"
+            },
+            "tracking": {
+              "type": "array",
+              "min": 1,
+              "items": {
+                "$ref": "https://degusta-box.com/TimeRecording/Domain/Entity/Tracking.json"
+              }
+            },
+            "time": {
+              "type": "object",
+              "required": [
+                "total",
+                "today"
+              ],
+              "properties": {
+                "total": {
+                  "type": "integer"
+                },
+                "today": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

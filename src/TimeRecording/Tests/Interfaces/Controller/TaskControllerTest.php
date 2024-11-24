@@ -6,22 +6,27 @@ namespace DegustaBox\TimeRecording\Tests\Interfaces\Controller;
 use DateTime;
 use DegustaBox\Auth\Domain\Entity\User;
 use DegustaBox\Auth\Domain\Repository\UserRepository;
+use DegustaBox\Core\Domain\Validator\SchemaValidator;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskControllerTest extends WebTestCase
 {
-    private DateTime $dateTime;
+    private DateTime $start;
+    private DateTime $end;
     private KernelBrowser $client;
     private User $user;
+    private SchemaValidator $schemaValidator;
 
     protected function setUp(): void
     {
-        $this->dateTime = new DateTime();
+        $this->start = new DateTime('2024-11-23 10:00:00');
+        $this->end = new DateTime('2024-11-23 11:00:00');
         $this->client = static::createClient();
         $this->client->disableReboot();
         $userRepository = $this->client->getContainer()->get(UserRepository::class);
         $this->user = $userRepository->findByEmail('user@degustabox.com');
+        $this->schemaValidator = $this->client->getContainer()->get(SchemaValidator::class);
     }
 
     public function testCreateTaskComplete(): void
@@ -30,8 +35,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s'),
-            'end' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s'),
+            'end' => $this->end->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -44,7 +49,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -57,14 +62,15 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s'),
-            'end' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s'),
+            'end' => $this->end->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
         $this->assertResponseStatusCodeSame(201);
 
-        $dt = $this->dateTime->modify('+1 hour');
+        $dt = $this->end;
+        $dt->modify('+1 hour');
         $content = [
             'name' => 'task-test',
             'start' => $dt->format('Y-m-d H:i:s'),
@@ -81,16 +87,15 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
         $this->assertResponseStatusCodeSame(201);
 
-        $dt = $this->dateTime->modify('+1 hour');
         $content = [
             'name' => 'task-test',
-            'start' => $dt->format('Y-m-d H:i:s'),
+            'start' => $this->end->format('Y-m-d H:i:s'),
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -106,7 +111,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -114,7 +119,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'end' => $this->dateTime->format('Y-m-d H:i:s')
+            'end' => $this->end->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/close', content: json_encode($content));
@@ -127,8 +132,8 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'start' => $this->dateTime->format('Y-m-d H:i:s'),
-            'end' => $this->dateTime->format('Y-m-d H:i:s')
+            'start' => $this->start->format('Y-m-d H:i:s'),
+            'end' => $this->end->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
@@ -136,7 +141,7 @@ class TaskControllerTest extends WebTestCase
 
         $content = [
             'name' => 'task-test',
-            'end' => $this->dateTime->format('Y-m-d H:i:s')
+            'end' => $this->end->format('Y-m-d H:i:s')
         ];
 
         $this->client->request('POST', '/api/time-recording/task/close', content: json_encode($content));
@@ -144,5 +149,27 @@ class TaskControllerTest extends WebTestCase
 
         $expected = ['message' => 'Not tracking in process'];
         $this->assertJsonStringEqualsJsonString($this->client->getResponse()->getContent(), json_encode($expected));
+    }
+
+    public function testList(): void
+    {
+        $this->client->loginUser($this->user);
+
+        $content = [
+            'name' => 'task-test',
+            'start' => $this->start->format('Y-m-d H:i:s'),
+            'end' => $this->end->format('Y-m-d H:i:s')
+        ];
+
+        $this->client->request('POST', '/api/time-recording/task/create', content: json_encode($content));
+        $this->assertResponseStatusCodeSame(201);
+
+        $this->client->request('GET', '/api/time-recording/task/list', content: json_encode($content));
+        $response = $this->client->getResponse()->getContent();
+
+        $this->schemaValidator->validate(
+            json_decode($response, true),
+            '@TimeRecordingBundle/Resources/schema/Interfaces/Controller/TaskController/Response/list.json'
+        );
     }
 }

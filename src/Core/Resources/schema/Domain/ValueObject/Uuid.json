@@ -1,0 +1,5 @@
+{
+  "title": "Uuid",
+  "type": "string",
+  "format": "uuid"
+}
