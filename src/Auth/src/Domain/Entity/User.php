@@ -101,4 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->isVerified;
     }
+
+    public function email(): string
+    {
+        return $this->email;
+    }
 }

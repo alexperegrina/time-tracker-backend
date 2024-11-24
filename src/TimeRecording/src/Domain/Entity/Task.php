@@ -58,6 +58,11 @@ class Task
         $this->user = $user;
     }
 
+    public function user(): User
+    {
+        return $this->user;
+    }
+
     /**
      * @throws InvalidUuidException
      * @throws TrackingInProcessException

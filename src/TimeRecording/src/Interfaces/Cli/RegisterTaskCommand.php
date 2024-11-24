@@ -28,7 +28,7 @@ class RegisterTaskCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('time-recording:register-task')
+            ->setName('time-recording:task:register')
             ->setDescription('Register a task, action=[start, stop]')
             ->addUsage('start task-1 user@degustabox.com')
             ->addUsage('stop task-1 user@degustabox.com')
@@ -64,9 +64,7 @@ class RegisterTaskCommand extends Command
     protected function user(string $email): User
     {
         $query = new FindUserByEmailQuery($email);
-        /** @var User $user */
-        $user = $this->queryBus->dispatch($query);
-        return $user;
+        return $this->queryBus->dispatch($query);
     }
 
     protected function action(string $action, Uuid $userId, string $name): void
