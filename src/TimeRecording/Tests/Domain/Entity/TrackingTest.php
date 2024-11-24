@@ -15,22 +15,33 @@ class TrackingTest extends TestCase
     {
         $tracking = new Tracking(
             Uuid::uuid4(),
-            new DateTime('2024-11-23T12:00:00.000Z'),
-            new DateTime('2024-11-23T13:00:00.000Z')
+            new DateTime('today 12:00:00'),
+            new DateTime('today 13:00:00')
         );
 
         $this->assertEquals(3600, $tracking->time());
     }
 
-    public function testTotalTime(): void
+    public function testTodayTimeDow(): void
     {
         $tracking = new Tracking(
             Uuid::uuid4(),
-            new DateTime('2024-11-23T12:00:00.000Z'),
-            new DateTime('2024-11-24T04:00:00.000Z')
+            new DateTime('yesterday 23:00:00'),
+            new DateTime('today 04:00:00')
         );
 
         $this->assertEquals(3600*4, $tracking->todayTime());
+    }
+
+    public function testTodayTimeUp(): void
+    {
+        $tracking = new Tracking(
+            Uuid::uuid4(),
+            new DateTime('today 23:00:00'),
+            new DateTime('tomorrow 03:00:00')
+        );
+
+        $this->assertEquals(3600, $tracking->todayTime());
     }
 
     public function testGuardDates(): void
@@ -39,8 +50,8 @@ class TrackingTest extends TestCase
 
         $tracking = new Tracking(
             Uuid::uuid4(),
-            new DateTime('2024-11-23T14:00:00.000Z'),
-            new DateTime('2024-11-23T12:00:00.000Z')
+            new DateTime('today 14:00:00'),
+            new DateTime('today 12:00:00')
         );
     }
 }

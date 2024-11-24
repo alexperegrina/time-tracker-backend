@@ -7,6 +7,7 @@ use DateTime;
 use DegustaBox\Auth\Domain\Entity\User;
 use DegustaBox\Core\Domain\Exception\InvalidUuidException;
 use DegustaBox\Core\Domain\ValueObject\Uuid;
+use DegustaBox\TimeRecording\Domain\Exception\InvalidDateRangeException;
 use DegustaBox\TimeRecording\Domain\Exception\NotTrackingInProcessException;
 use DegustaBox\TimeRecording\Domain\Exception\TrackingInProcessException;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -60,6 +61,7 @@ class Task
     /**
      * @throws InvalidUuidException
      * @throws TrackingInProcessException
+     * @throws InvalidDateRangeException
      */
     public function createTracking(DateTime $start, ?DateTime $end = null): void
     {
@@ -76,6 +78,7 @@ class Task
 
     /**
      * @throws NotTrackingInProcessException
+     * @throws InvalidDateRangeException
      */
     public function closeTracking(DateTime $date): void
     {
