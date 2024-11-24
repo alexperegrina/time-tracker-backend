@@ -1,0 +1,10 @@
+core:
+  validator:
+    schema:
+      declare:
+        - path: '@CoreBundle/Resources/schema/'
+          prefix: 'https://degusta-box.com/Core/'
+        - path: '@AuthBundle/Resources/schema/'
+          prefix: 'https://degusta-box.com/Auth/'
+        - path: '@TimeRecordingBundle/Resources/schema/'
+          prefix: 'https://degusta-box.com/TimeRecording/'

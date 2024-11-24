@@ -12,6 +12,9 @@ class CoreExtension extends AbstractExtension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $config = $this->processConfiguration(new CoreConfiguration(), $configs);
+        $this->passConfigToParameters($config, $container);
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $this->loadFromEnvironment($loader, $container->getParameter('kernel.environment'));
     }
@@ -24,5 +27,11 @@ class CoreExtension extends AbstractExtension
     public function getConfiguration(array $config, ContainerBuilder $container): CoreConfiguration
     {
         return new CoreConfiguration();
+    }
+
+    protected function passConfigToParameters(array $config, ContainerBuilder $container): void
+    {
+        $alias = $this->getAlias().'.validator.schema';
+        $container->setParameter($alias, $config['validator']['schema']);
     }
 }

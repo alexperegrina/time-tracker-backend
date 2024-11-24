@@ -70,3 +70,10 @@ services:
   # ---
   DegustaBox\Core\Infrastructure\Symfony\EventListener\:
     resource: '../../src/Infrastructure/Symfony/EventListener/*'
+
+  # --- VALIDATOR
+  # ---
+  DegustaBox\Core\Domain\Validator\SchemaValidator:
+    class: DegustaBox\Core\Infrastructure\Validator\OpisSchemaValidator
+    arguments:
+      $config: '%core.validator.schema%'
