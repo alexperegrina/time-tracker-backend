@@ -7,10 +7,13 @@ use DegustaBox\Auth\Domain\Entity\User;
 use DegustaBox\Core\Domain\Messenger\Bus\CommandBus;
 use DegustaBox\Core\Domain\Messenger\Bus\QueryBus;
 use DegustaBox\Core\Domain\Validator\SchemaValidator;
+use DegustaBox\Core\Domain\ValueObject\Uuid;
 use DegustaBox\TimeRecording\Application\Command\CloseTask\CloseTaskCommand;
 use DegustaBox\TimeRecording\Application\Command\CreateTask\CreateTaskCommand;
+use DegustaBox\TimeRecording\Application\Query\FindTaskById\FindTaskByIdQuery;
 use DegustaBox\TimeRecording\Application\Query\FindTasksByUser\FindTasksByUserQuery;
 use DegustaBox\TimeRecording\Interfaces\Controller\Response\TaskController\ListResponse;
+use DegustaBox\TimeRecording\Interfaces\Controller\Response\TaskController\TaskResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,6 +69,16 @@ class TaskController extends AbstractController
         $query = new FindTasksByUserQuery($user->id->value);
         $tasks = $this->queryBus->dispatch($query);
         $response = new ListResponse($tasks);
+
+        return $this->json($response->response());
+    }
+
+    #[Route('/{id}', name: 'time-recording_task-by-id', requirements: ['id' => '%routing.uuid%'], methods: ['GET'])]
+    public function taskById(#[CurrentUser] ?User $user, string $id): JsonResponse
+    {
+        $query = new FindTaskByIdQuery($id);
+        $task = $this->queryBus->dispatch($query);
+        $response = new TaskResponse($task);
 
         return $this->json($response->response());
     }

@@ -23,6 +23,7 @@ services:
   # ---
   DegustaBox\TimeRecording\Interfaces\Controller\:
     resource: '../../src/Interfaces/Controller/*'
+    exclude: '../../src/Interfaces/Controller/Response/*'
 
   # --- CLI
   # ---
