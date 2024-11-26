@@ -9,10 +9,11 @@ PHP_CONSOLE=php bin/console
 include etc/makefile/db.mk
 include etc/makefile/test.mk
 include etc/makefile/cache.mk
+include etc/makefile/docker.mk
 
 first-env:
 	composer install
-	@make --no-print-directory db-init
+	@$(PHP_CONSOLE) lexik:jwt:generate-keypair
 
 init-env:
 	@make --no-print-directory db-init

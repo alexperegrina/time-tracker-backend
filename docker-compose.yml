@@ -20,7 +20,7 @@ services:
       MYSQL_USER: degustabox
       MYSQL_PASSWORD: degustabox
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
 
