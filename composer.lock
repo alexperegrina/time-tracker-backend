@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "453f4debad20843b79b7b463b493627b",
+    "content-hash": "d44818b3469df1828eb428662f565079",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -61,7 +61,7 @@
             "dist": {
                 "type": "path",
                 "url": "./src/Auth",
-                "reference": "49e53af89f0c23d568911f0ef21e004a35bc1022"
+                "reference": "a79f157633618fc0c4d8d8b9233a2cd79810ddd5"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -82,6 +82,7 @@
             ],
             "description": "Auth",
             "transport-options": {
+                "symlink": true,
                 "relative": true
             }
         },
@@ -91,7 +92,7 @@
             "dist": {
                 "type": "path",
                 "url": "./src/Core",
-                "reference": "c143bdf864c01eba3e78e4e1c6d8bcc2ac12fe87"
+                "reference": "f29c1a514f385722b0c9158d9a01ca199413a637"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -112,6 +113,7 @@
             ],
             "description": "Core",
             "transport-options": {
+                "symlink": true,
                 "relative": true
             }
         },
@@ -121,7 +123,7 @@
             "dist": {
                 "type": "path",
                 "url": "./src/TimeRecording",
-                "reference": "d883afeb4cd9fe39907cebfd67291a9c43e99d65"
+                "reference": "2f61549aacda62b42155036924a08cceeb60578a"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -142,6 +144,7 @@
             ],
             "description": "TimeRecording bundle",
             "transport-options": {
+                "symlink": true,
                 "relative": true
             }
         },
@@ -8284,6 +8287,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
